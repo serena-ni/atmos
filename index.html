@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Atmos — Reading the Atmosphere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>Atmos</h1>
+  <p class="tagline">Reading the atmosphere, layer by layer.</p>
+</header>
+
+<section class="input-panel">
+  <button id="geoBtn">Use My Location</button>
+
+  <div class="manual">
+    <input type="text" id="city" placeholder="City" />
+    <input type="text" id="country" placeholder="Country (optional)" />
+    <button id="manualBtn">Analyze</button>
+  </div>
+
+  <p class="privacy">Location is used once and never stored.</p>
+</section>
+
+<main id="layers" class="hidden">
+
+  <div class="layer">
+    <button class="layer-header">Surface Conditions</button>
+    <div class="layer-content" id="surface"></div>
+  </div>
+
+  <div class="layer">
+    <button class="layer-header">Pressure & Systems</button>
+    <div class="layer-content" id="pressure"></div>
+  </div>
+
+  <div class="layer">
+    <button class="layer-header">Wind & Motion</button>
+    <div class="layer-content" id="wind"></div>
+  </div>
+
+  <div class="layer">
+    <button class="layer-header">Context & Interpretation</button>
+    <div class="layer-content" id="context"></div>
+  </div>
+
+</main>
+
+<footer>
+  <p>built for hack club · api-powered</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

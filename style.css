@@ -1,0 +1,109 @@
+:root {
+  --bg: #F6F8FA;
+  --text: #1F2933;
+  --muted: #6B7280;
+  --accent: #4F83C2;
+  --card: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  padding: 2rem 1.5rem 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.tagline {
+  color: var(--muted);
+}
+
+.input-panel {
+  padding: 1rem 1.5rem;
+}
+
+.input-panel button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.manual {
+  margin-top: 0.8rem;
+}
+
+.manual input {
+  padding: 0.5rem;
+  margin-right: 0.3rem;
+}
+
+.privacy {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+main {
+  padding: 1rem 1.5rem 2rem;
+}
+
+.layer {
+  margin-bottom: 1rem;
+  background: var(--card);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.layer-header {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.layer-content {
+  padding: 0 1rem 1rem;
+  display: none;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.layer.open .layer-content {
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding-bottom: 1.5rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
