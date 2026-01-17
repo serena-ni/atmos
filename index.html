@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div class="page">
 
   <button id="themeToggle" aria-label="toggle dark mode">🌙</button>
@@ -54,7 +53,7 @@
           surface temperature reflects solar radiation absorbed by land and ocean,
           moderated by cloud cover and local geography.
         </p>
-        <div class="chip">data via open-meteo</div>
+        <div class="source-chip">data: <a href="https://open-meteo.com/" target="_blank">open-meteo.com</a></div>
       </div>
     </div>
 
@@ -66,7 +65,7 @@
           air pressure varies as warm air rises and cool air sinks,
           forming high and low pressure systems that drive weather patterns.
         </p>
-        <div class="chip">data via open-meteo</div>
+        <div class="source-chip">data: <a href="https://open-meteo.com/" target="_blank">open-meteo.com</a></div>
       </div>
     </div>
 
@@ -79,18 +78,21 @@
           <span class="tooltip" data-tip="deflection of moving air due to earth’s rotation">coriolis deflection</span> 
           and friction with the surface.
         </p>
-        <div class="chip">data via open-meteo</div>
+        <div class="source-chip">data: <a href="https://open-meteo.com/" target="_blank">open-meteo.com</a></div>
       </div>
     </div>
 
   </main>
 
   <footer>
-    <p>api powered · privacy first</p>
-  </footer>
+  <p>
+    api powered · privacy first ·
+    <a href="https://github.com/serena-ni/atmos" target="_blank" rel="noopener">github</a>
+  </p>
+</footer>
+
 
 </div>
-
 <script src="script.js"></script>
 </body>
 </html>

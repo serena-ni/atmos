@@ -5,13 +5,7 @@ const loading = document.getElementById("loading");
 const themeToggle = document.getElementById("themeToggle");
 const cityInput = document.getElementById("city");
 const cityDropdown = document.getElementById("cityDropdown");
-
 let latestFetch = 0;
-
-/* ensure loading never shows on load */
-document.addEventListener("DOMContentLoaded", () => {
-  loading.classList.add("hidden");
-});
 
 /* dark mode toggle */
 themeToggle.onclick = () => {
@@ -39,7 +33,7 @@ geoBtn.onclick = () => {
   );
 };
 
-/* autocomplete dropdown while typing */
+/* autocomplete as user types */
 cityInput.addEventListener("input", async () => {
   const query = cityInput.value.trim();
   const fetchId = ++latestFetch;
@@ -78,7 +72,7 @@ cityInput.addEventListener("input", async () => {
   }
 });
 
-/* analyze button */
+/* analyze button uses selected lat/lon */
 manualBtn.onclick = () => {
   const lat = cityInput.dataset.lat;
   const lon = cityInput.dataset.lon;
@@ -87,7 +81,6 @@ manualBtn.onclick = () => {
     return;
   }
   analyze(lat, lon);
-  cityDropdown.classList.add("hidden");
 };
 
 /* show/hide loading */
@@ -100,26 +93,24 @@ function hideLoading() {
   loading.classList.add("hidden");
 }
 
-/* analyze weather data */
+/* analyze API data */
 async function analyze(lat, lon) {
   showLoading();
 
-  const url =
-    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
-    `&hourly=temperature_2m,pressure_msl,wind_speed_10m`;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,pressure_msl,wind_speed_10m`;
 
   const data = await fetch(url).then(r => r.json());
 
   hideLoading();
   layers.classList.remove("hidden");
 
-  drawWave("tempWave", data.hourly.temperature_2m, 30, lat);
-  drawWave("pressureWave", data.hourly.pressure_msl, 18, lat);
-  drawWave("windWave", data.hourly.wind_speed_10m, 22, lat);
+  drawWave("tempWave", data.hourly.temperature_2m, 30, lat, "°C");
+  drawWave("pressureWave", data.hourly.pressure_msl, 18, lat, "hPa");
+  drawWave("windWave", data.hourly.wind_speed_10m, 22, lat, "m/s");
 }
 
-/* wave drawing */
-function drawWave(id, values, strength, lat) {
+/* draw waves reflecting actual data with hover tooltips */
+function drawWave(id, values, strength, lat, unit) {
   const canvas = document.getElementById(id);
   const ctx = canvas.getContext("2d");
 
@@ -139,6 +130,30 @@ function drawWave(id, values, strength, lat) {
   const speed = 0.01 + Math.abs(lat) / 9000;
   const hue = 210 + lat * 0.3;
 
+  // mouse tooltip
+  let tooltip = document.createElement("div");
+  tooltip.className = "tooltip";
+  document.body.appendChild(tooltip);
+
+  canvas.onmousemove = e => {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const i = Math.floor((x / w) * values.length);
+    tooltip.textContent = `${values[i].toFixed(1)} ${unit}`;
+    tooltip.style.position = "fixed";
+    tooltip.style.left = e.clientX + 8 + "px";
+    tooltip.style.top = e.clientY + 8 + "px";
+    tooltip.style.background = getComputedStyle(document.documentElement).getPropertyValue("--panel");
+    tooltip.style.color = getComputedStyle(document.documentElement).getPropertyValue("--text");
+    tooltip.style.padding = "0.3rem 0.5rem";
+    tooltip.style.borderRadius = "6px";
+    tooltip.style.fontSize = "0.75rem";
+    tooltip.style.pointerEvents = "none";
+    tooltip.style.zIndex = "1000";
+    tooltip.style.display = "block";
+  };
+  canvas.onmouseleave = () => { tooltip.style.display = "none"; };
+
   function frame() {
     ctx.clearRect(0, 0, w, h);
     ctx.strokeStyle = `hsl(${hue}, 60%, 55%)`;
@@ -147,13 +162,7 @@ function drawWave(id, values, strength, lat) {
 
     for (let x = 0; x <= w; x++) {
       const i = Math.floor((x / w) * values.length);
-      const norm = (values[i] - min) / (max - min || 1);
-
-      const y =
-        mid +
-        Math.sin(x * 0.015 + t) * strength * norm +
-        Math.sin(x * 0.005 + t * 0.6) * 8;
-
+      const y = mid + ((values[i] - min) / (max - min || 1) - 0.5) * strength * 2 + Math.sin(x * 0.015 + t) * 4;
       x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
     }
 
@@ -164,7 +173,7 @@ function drawWave(id, values, strength, lat) {
   frame();
 }
 
-/* loading screen wave animation */
+/* loading animation */
 function animateLoading() {
   const canvas = document.getElementById("loadingWave");
   const ctx = canvas.getContext("2d");

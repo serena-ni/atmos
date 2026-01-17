@@ -27,7 +27,7 @@ body {
 }
 
 .page {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2.5rem 1.25rem 3rem;
   display: flex;
@@ -39,26 +39,27 @@ body {
   align-self: flex-end;
   background: none;
   border: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   color: var(--muted);
-  margin-bottom: 0.5rem;
-  transition: transform 0.2s ease;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
-#themeToggle:hover { transform: scale(1.1); }
 
 header {
   text-align: center;
 }
 
-h1 { font-size: 2.3rem; font-weight: 600; }
+h1 { font-size: 2.5rem; font-weight: 600; }
 .tagline { color: var(--muted); }
 
 .input-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
+  gap: 1rem;
   margin-top: 1.5rem;
   width: 100%;
 }
@@ -127,7 +128,6 @@ button:hover {
   font-size: 0.85rem;
   z-index: 100;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: opacity 0.2s ease, transform 0.15s ease;
 }
 
 #cityDropdown li {
@@ -140,15 +140,9 @@ button:hover {
   color: white;
 }
 
-.privacy {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
+.privacy { font-size: 0.75rem; color: var(--muted); }
 
-main {
-  width: 100%;
-  margin-top: 2rem;
-}
+main { width: 100%; margin-top: 2rem; }
 
 .layer {
   background: var(--panel);
@@ -186,11 +180,7 @@ canvas {
   width: 100%;
   height: 160px;
   border-radius: 10px;
-  background: linear-gradient(
-    180deg,
-    rgba(79,131,194,0.08),
-    rgba(79,131,194,0.02)
-  );
+  background: linear-gradient(180deg, rgba(79,131,194,0.08), rgba(79,131,194,0.02));
 }
 
 .analysis {
@@ -201,7 +191,6 @@ canvas {
   padding-left: 0.6rem;
 }
 
-/* tooltips */
 .tooltip {
   text-decoration: underline dotted;
   cursor: help;
@@ -227,22 +216,26 @@ canvas {
   z-index: 50;
 }
 
-.tooltip:hover::after { opacity: 1; }
-
-/* chips */
-.chip {
-  display: inline-block;
-  padding: 0.25rem 0.6rem;
-  border-radius: 12px;
-  background: rgba(79,131,194,0.15);
-  font-size: 0.75rem;
-  margin-top: 0.6rem;
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
+.tooltip:hover::after {
+  opacity: 1;
 }
 
-.chip:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79,131,194,0.2);
+.source-chip {
+  display: inline-block;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.source-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 #loading {
@@ -262,4 +255,9 @@ footer {
   margin-top: 2rem;
   font-size: 0.75rem;
   color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: #3c6fb0; /* slightly darker accent on hover */
 }
