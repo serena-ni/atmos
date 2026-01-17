@@ -1,78 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>atmos</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>atmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="loading" class="hidden">
-  <canvas id="loadingWave"></canvas>
-  <p>sampling the atmosphere…</p>
+<div class="page">
+
+  <button id="themeToggle" aria-label="toggle dark mode">🌙</button>
+
+  <div id="loading" class="hidden">
+    <canvas id="loadingWave"></canvas>
+    <p>sampling the atmosphere...</p>
+  </div>
+
+  <header>
+    <h1>atmos</h1>
+    <p class="tagline">reading the atmosphere, layer by layer</p>
+  </header>
+
+  <section class="input-panel">
+    <button id="geoBtn">📍 use my location</button>
+
+    <div class="manual">
+      <input
+        id="city"
+        placeholder="city"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <button id="manualBtn">🔍 analyze</button>
+    </div>
+
+    <p class="privacy">location is never stored</p>
+  </section>
+
+  <main id="layers" class="hidden">
+
+    <div class="layer open">
+      <button class="layer-header">surface temperature</button>
+      <div class="layer-content">
+        <canvas id="tempWave"></canvas>
+        <p class="analysis">
+          surface temperature reflects solar radiation absorbed by land and ocean,
+          moderated by cloud cover and local geography.
+        </p>
+      </div>
+    </div>
+
+    <div class="layer">
+      <button class="layer-header">pressure systems</button>
+      <div class="layer-content">
+        <canvas id="pressureWave"></canvas>
+        <p class="analysis">
+          air pressure varies as warm air rises and cool air sinks,
+          forming high and low pressure systems that drive weather patterns.
+        </p>
+      </div>
+    </div>
+
+    <div class="layer">
+      <button class="layer-header">wind motion</button>
+      <div class="layer-content">
+        <canvas id="windWave"></canvas>
+        <p class="analysis">
+          wind emerges from <span class="tooltip" data-tip="the change in pressure over a distance"></span>pressure gradients, shaped by 
+          <span class="tooltip" data-tip="deflection of moving air due to earth’s rotation">coriolis deflection</span> 
+          and friction with the surface.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>hack club sleepover · api powered · privacy first</p>
+  </footer>
+
 </div>
-
-<header>
-  <h1>atmos</h1>
-  <p class="tagline">reading the atmosphere, layer by layer</p>
-</header>
-
-<section class="input-panel">
-  <button id="geoBtn">use my location 📍</button>
-
-  <div class="manual">
-    <input id="city" placeholder="city" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-    <button id="manualBtn">analyze ☁️</button>
-  </div>
-
-  <div id="cityOptions" class="hidden"></div>
-
-  <p class="privacy">location is never stored</p>
-</section>
-
-<main id="layers" class="hidden">
-
-  <div class="layer open">
-    <button class="layer-header">surface temperature</button>
-    <div class="layer-content">
-      <canvas id="tempWave"></canvas>
-      <p class="analysis">
-        temperature encoded as wave amplitude over a daily cycle.
-      </p>
-    </div>
-  </div>
-
-  <div class="layer">
-    <button class="layer-header">pressure systems</button>
-    <div class="layer-content">
-      <canvas id="pressureWave"></canvas>
-      <p class="analysis">
-        pressure stability shown through interference patterns.
-      </p>
-    </div>
-  </div>
-
-  <div class="layer">
-    <button class="layer-header">wind motion</button>
-    <div class="layer-content">
-      <canvas id="windWave"></canvas>
-      <p class="analysis">
-        wind speed visualized as oscillation intensity and drift.
-      </p>
-    </div>
-  </div>
-
-</main>
-
-<footer>
-  <p>hack club sleepover · api powered · privacy first</p>
-</footer>
 
 <script src="script.js"></script>
 </body>
