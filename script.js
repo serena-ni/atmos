@@ -70,6 +70,14 @@ async function analyze(lat, lon) {
   drawWave("tempWave", data.hourly.temperature_2m, 30, lat);
   drawWave("pressureWave", data.hourly.pressure_msl, 18, lat);
   drawWave("windWave", data.hourly.wind_speed_10m, 22, lat);
+
+  updateTimestamp();
+}
+
+function updateTimestamp() {
+  const tsEl = document.getElementById("timestamp");
+  const now = new Date();
+  tsEl.textContent = `forecast sampled at ${now.toUTCString()}`;
 }
 
 function drawWave(id, values, strength, lat) {

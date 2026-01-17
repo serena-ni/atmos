@@ -53,6 +53,7 @@
           surface temperature reflects solar radiation absorbed by land and ocean,
           moderated by cloud cover and local geography.
         </p>
+        <span class="method-chip">method: hourly temperature data from <a href="https://open-meteo.com/" target="_blank">Open-Meteo API</a></span>
       </div>
     </div>
 
@@ -64,6 +65,7 @@
           air pressure varies as warm air rises and cool air sinks,
           forming high and low pressure systems that drive weather patterns.
         </p>
+        <span class="method-chip">method: hourly pressure measurements via <a href="https://open-meteo.com/" target="_blank">Open-Meteo API</a></span>
       </div>
     </div>
 
@@ -72,17 +74,22 @@
       <div class="layer-content">
         <canvas id="windWave"></canvas>
         <p class="analysis">
-          wind emerges from <span class="tooltip" data-tip="the change in pressure over a distance">pressure gradients</span>, shaped by 
-          <span class="tooltip" data-tip="deflection of moving air due to earth’s rotation">coriolis deflection</span> 
+          wind emerges from <span class="tooltip" data-tip="the change in pressure over a distance">pressure gradients</span>,
+          shaped by <span class="tooltip" data-tip="deflection of moving air due to earth’s rotation">coriolis deflection</span>
           and friction with the surface.
         </p>
+        <span class="method-chip">method: hourly wind data via <a href="https://open-meteo.com/" target="_blank">Open-Meteo API</a></span>
       </div>
     </div>
+
+    <p id="timestamp" class="timestamp"></p>
 
   </main>
 
   <footer>
-    <p>hack club sleepover · api powered · privacy first</p>
+    <p>
+      <a href="https://github.com/serena-ni/atmos" target="_blank">view on GitHub</a>
+    </p>
   </footer>
 
 </div>

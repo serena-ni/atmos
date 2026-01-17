@@ -200,6 +200,40 @@ canvas {
   opacity: 1;
 }
 
+/* method chips */
+.method-chip {
+  display: inline-block;
+  background: rgba(79,131,194,0.1);
+  color: var(--text);
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  margin-top: 0.4rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.method-chip a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.method-chip a:hover {
+  text-decoration: underline;
+}
+
+.method-chip:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(79,131,194,0.25);
+}
+
+[data-theme="dark"] .method-chip {
+  background: rgba(122,162,227,0.2);
+  color: var(--text);
+}
+
+/* loading */
 #loading {
   position: fixed;
   inset: 0;
@@ -219,4 +253,21 @@ footer {
   margin-top: 2rem;
   font-size: 0.75rem;
   color: var(--muted);
+  text-align: center;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.timestamp {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.8rem;
+  text-align: center;
 }
