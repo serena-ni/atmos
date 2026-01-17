@@ -36,10 +36,10 @@ interactive hover tooltips display the exact values used in each visualization s
 
 ### preview
 #### start screen
-![start screen](start screen.png)
+![start screen](start-screen.png)
 
 #### atmospheric visualizations
-![graph examples](graph examples.png)
+![graph examples](graph-examples.png)
 
 #### built for
 hack club sleepover 💤  
