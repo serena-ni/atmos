@@ -15,7 +15,7 @@
 
 <div id="loading" class="hidden">
   <canvas id="loadingWave"></canvas>
-  <p>sampling the atmosphere...</p>
+  <p>sampling the atmosphere…</p>
 </div>
 
 <header>
@@ -24,12 +24,14 @@
 </header>
 
 <section class="input-panel">
-  <button id="geoBtn">use my location</button>
+  <button id="geoBtn">use my location 📍</button>
 
   <div class="manual">
-    <input id="city" placeholder="city">
-    <button id="manualBtn">analyze</button>
+    <input id="city" placeholder="city" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button id="manualBtn">analyze ☁️</button>
   </div>
+
+  <div id="cityOptions" class="hidden"></div>
 
   <p class="privacy">location is never stored</p>
 </section>
