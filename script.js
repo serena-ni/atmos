@@ -3,6 +3,10 @@ const manualBtn = document.getElementById("manualBtn");
 const layers = document.getElementById("layers");
 const loading = document.getElementById("loading");
 const themeToggle = document.getElementById("themeToggle");
+const cityInput = document.getElementById("city");
+const cityDropdown = document.getElementById("cityDropdown");
+
+let latestFetch = 0;
 
 /* ensure loading never shows on load */
 document.addEventListener("DOMContentLoaded", () => {
@@ -27,6 +31,7 @@ document.querySelectorAll(".layer-header").forEach(h =>
   h.onclick = () => h.parentElement.classList.toggle("open")
 );
 
+/* geolocation button */
 geoBtn.onclick = () => {
   navigator.geolocation.getCurrentPosition(
     pos => analyze(pos.coords.latitude, pos.coords.longitude),
@@ -34,18 +39,58 @@ geoBtn.onclick = () => {
   );
 };
 
-manualBtn.onclick = async () => {
-  const city = document.getElementById("city").value;
-  if (!city) return;
+/* autocomplete dropdown while typing */
+cityInput.addEventListener("input", async () => {
+  const query = cityInput.value.trim();
+  const fetchId = ++latestFetch;
 
-  const geo = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1`
-  ).then(r => r.json());
+  cityDropdown.classList.add("hidden");
+  cityDropdown.innerHTML = "";
 
-  if (!geo.results) return alert("location not found");
-  analyze(geo.results[0].latitude, geo.results[0].longitude);
+  if (!query) return;
+
+  try {
+    const geo = await fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5`
+    ).then(r => r.json());
+
+    if (fetchId !== latestFetch) return;
+    if (!geo.results || geo.results.length === 0) return;
+
+    geo.results.forEach(loc => {
+      const li = document.createElement("li");
+      li.textContent = `${loc.name}, ${loc.admin1 || ""}${loc.country ? ", " + loc.country : ""}`;
+      li.dataset.lat = loc.latitude;
+      li.dataset.lon = loc.longitude;
+      cityDropdown.appendChild(li);
+
+      li.onclick = () => {
+        cityInput.value = li.textContent;
+        cityInput.dataset.lat = li.dataset.lat;
+        cityInput.dataset.lon = li.dataset.lon;
+        cityDropdown.classList.add("hidden");
+      };
+    });
+
+    cityDropdown.classList.remove("hidden");
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+/* analyze button */
+manualBtn.onclick = () => {
+  const lat = cityInput.dataset.lat;
+  const lon = cityInput.dataset.lon;
+  if (!lat || !lon) {
+    alert("please select a location from the dropdown");
+    return;
+  }
+  analyze(lat, lon);
+  cityDropdown.classList.add("hidden");
 };
 
+/* show/hide loading */
 function showLoading() {
   loading.classList.remove("hidden");
   animateLoading();
@@ -55,6 +100,7 @@ function hideLoading() {
   loading.classList.add("hidden");
 }
 
+/* analyze weather data */
 async function analyze(lat, lon) {
   showLoading();
 
@@ -70,16 +116,9 @@ async function analyze(lat, lon) {
   drawWave("tempWave", data.hourly.temperature_2m, 30, lat);
   drawWave("pressureWave", data.hourly.pressure_msl, 18, lat);
   drawWave("windWave", data.hourly.wind_speed_10m, 22, lat);
-
-  updateTimestamp();
 }
 
-function updateTimestamp() {
-  const tsEl = document.getElementById("timestamp");
-  const now = new Date();
-  tsEl.textContent = `forecast sampled at ${now.toUTCString()}`;
-}
-
+/* wave drawing */
 function drawWave(id, values, strength, lat) {
   const canvas = document.getElementById(id);
   const ctx = canvas.getContext("2d");
@@ -125,6 +164,7 @@ function drawWave(id, values, strength, lat) {
   frame();
 }
 
+/* loading screen wave animation */
 function animateLoading() {
   const canvas = document.getElementById("loadingWave");
   const ctx = canvas.getContext("2d");
