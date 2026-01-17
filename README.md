@@ -36,11 +36,11 @@ interactive hover tooltips display the exact values used in each visualization s
 
 ### preview
 #### start screen
-![start screen](screenshots/start screen.png)
+![start screen](start screen.png)
 
 #### atmospheric visualizations
-![graph examples](screenshots/graph examples.png)
+![graph examples](graph examples.png)
 
 #### built for
 hack club sleepover 💤  
-an all-girls and nonbinary coding event focused on building ambitious, creative projects.
+an all-girls and nonbinary coding event focused on building creative projects.
