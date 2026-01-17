@@ -62,10 +62,7 @@ button {
   transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
-button:hover {
-  box-shadow: 0 6px 16px rgba(79,131,194,0.28);
-}
-
+button:hover { box-shadow: 0 6px 16px rgba(79,131,194,0.28); }
 button:active { transform: scale(0.96); }
 
 .manual { display: flex; gap: 0.5rem; }
@@ -112,13 +109,18 @@ main {
   border-radius: 14px;
   box-shadow: none !important;
   filter: none !important;
-  transition: background 0.25s ease, padding-left 0.25s ease;
+  transition: background 0.25s ease, padding-left 0.25s ease, transform 0.25s ease;
 }
 
 .layer-header:hover { background: var(--accent-soft); }
 .layer-header:active { background: rgba(79,131,194,0.12); }
 .layer-header:focus { outline: none; }
-.layer.open .layer-header { padding-left: 1.4rem; }
+
+.layer.open .layer-header {
+  padding-left: 1.4rem;
+  transform: scale(1.02);
+  background: rgba(79,131,194,0.06);
+}
 
 .layer-content {
   max-height: 0;
@@ -127,6 +129,7 @@ main {
   transition: max-height 0.8s cubic-bezier(0.2,0.8,0.2,1), opacity 0.5s ease;
   padding: 0 1rem;
 }
+
 .layer.open .layer-content { max-height: 420px; opacity: 1; padding-bottom: 1rem; }
 
 canvas {
@@ -142,6 +145,12 @@ canvas {
   border-left: 3px solid var(--accent);
   padding-left: 0.6rem;
   margin-top: 0.6rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.layer-content:hover .analysis {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(79,131,194,0.08);
 }
 
 footer {
