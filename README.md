@@ -42,5 +42,4 @@ interactive hover tooltips display the exact values used in each visualization s
 ![graph examples](graphs.png)
 
 #### built for
-hack club sleepover 💤  
-an all-girls and nonbinary coding event focused on building creative projects.
+hack club sleepover 💤
