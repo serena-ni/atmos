@@ -7,17 +7,17 @@ const cityInput = document.getElementById("city");
 const cityDropdown = document.getElementById("cityDropdown");
 let latestFetch = 0;
 
-/* dark mode toggle */
+/* dark/light mode toggle */
 themeToggle.onclick = () => {
   const current = document.documentElement.getAttribute("data-theme");
   const next = current === "dark" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
-  themeToggle.textContent = next === "dark" ? "☀️" : "🌙";
+  themeToggle.textContent = next === "dark" ? "light" : "dark";
 };
 
 if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
   document.documentElement.setAttribute("data-theme", "dark");
-  themeToggle.textContent = "☀️";
+  themeToggle.textContent = "light";
 }
 
 /* layer toggles */
