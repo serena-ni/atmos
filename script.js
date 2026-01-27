@@ -107,6 +107,12 @@ async function analyze(lat, lon) {
   drawWave("tempWave", data.hourly.temperature_2m, 30, lat, "°C");
   drawWave("pressureWave", data.hourly.pressure_msl, 18, lat, "hPa");
   drawWave("windWave", data.hourly.wind_speed_10m, 22, lat, "m/s");
+  // Add more data visualizations as needed
+  drawWave("pressureWave", data.hourly.pressure_msl, 18, lat, "hPa");
+  drawWave("windWave", data.hourly.wind_speed_10m, 22, lat, "m/s");
+  // Add more data visualizations as needed
+  drawWave("pressureWave", data.hourly.pressure_msl, 18, lat, "hPa");
+  drawWave("windWave", data.hourly.wind_speed_10m, 22, lat, "m/s");
 }
 
 /* draw waves reflecting actual data with hover tooltips */
@@ -126,14 +132,52 @@ function drawWave(id, values, strength, lat, unit) {
   const min = Math.min(...values);
   const max = Math.max(...values);
 
+  // Validate data
+  if (min === Infinity || max === -Infinity) {
+    console.error('Invalid data received');
+    return;
+  }
+
+  // Dynamic scaling
+  const scaleFactor = 1.2; // Adjust this factor as needed
+  const adjustedMin = min * scaleFactor;
+  const adjustedMax = max * scaleFactor;
+
   let t = 0;
   const speed = 0.01 + Math.abs(lat) / 9000;
+
+  // Implement smoothing (simple moving average)
+  let smoothedValues = values.map((val, index, arr) => {
+    const start = Math.max(0, index - 2);
+    const end = Math.min(arr.length, index + 3);
+    const avg = arr.slice(start, end).reduce((a, b) => a + b, 0) / (end - start);
+    return avg;
+  });
+  values = smoothedValues;
+  // Implement smoothing (simple moving average)
+  let smoothedValues2 = values.map((val, index, arr) => {
+    const start = Math.max(0, index - 2);
+    const end = Math.min(arr.length, index + 3);
+    const avg = arr.slice(start, end).reduce((a, b) => a + b, 0) / (end - start);
+    return avg;
+  });
+  values = smoothedValues2;
   const hue = 210 + lat * 0.3;
 
   // mouse tooltip
-  let tooltip = document.createElement("div");
-  tooltip.className = "tooltip";
-  document.body.appendChild(tooltip);
+  let tooltip = document.querySelector(".tooltip") || (() => {
+    let el = document.createElement("div");
+    el.className = "tooltip";
+    el.style.position = "fixed";
+    el.style.padding = "0.3rem 0.5rem";
+    el.style.borderRadius = "6px";
+    el.style.fontSize = "0.75rem";
+    el.style.pointerEvents = "none";
+    el.style.zIndex = "1000";
+    el.style.display = "none";
+    document.body.appendChild(el);
+    return el;
+  })();
 
   canvas.onmousemove = e => {
     const rect = canvas.getBoundingClientRect();
