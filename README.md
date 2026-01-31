@@ -1,16 +1,14 @@
 # atmos
 
-atmos is a code-driven weather visualization that explores atmospheric behavior through motion, waves, and interaction.
+weather visualization using animated waveforms. see how temperature, pressure, and wind patterns shift across time and location.
 
-instead of charts and numbers alone, atmos represents weather data as continuously animated waveforms, helping reveal how temperature, pressure, and wind vary over time and space, and why those patterns form.
-
-## what it does
-- visualizes **surface temperature**, **pressure systems**, and **wind motion** as animated waves  
-- allows users to search for a location or use geolocation (never stored)
-- disambiguates cities with the same name using live suggestions
-- supports light and dark mode
-- explains atmospheric processes with inline definitions and research references
-- displays exact data values on hover for transparency and accuracy
+## features
+- **surface temperature**, **pressure systems**, and **wind motion** as animated waves  
+- search for a location or use geolocation (never stored)
+- city autocomplete for disambiguation
+- light and dark mode
+- inline explanations of atmospheric processes
+- hover for exact data values
 
 ## how it works
 atmos uses the **Open-Meteo API**, which aggregates data from trusted meteorological sources such as NOAA, ECMWF, and national weather services.

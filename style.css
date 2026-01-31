@@ -220,6 +220,18 @@ canvas {
   opacity: 1;
 }
 
+.wave-tooltip {
+  position: fixed;
+  background: var(--panel);
+  color: var(--text);
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  pointer-events: none;
+  z-index: 1000;
+  display: none;
+}
+
 .source-chip {
   display: inline-block;
   background: var(--panel);
